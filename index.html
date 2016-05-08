@@ -1,0 +1,76 @@
+<html>
+      <head>
+            <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+            <script src="script/ng-file-upload-shim.min.js"></script>
+            <script src="script/ng-file-upload.min.js"></script>
+            <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+      </head>
+
+      <body>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                  <div class="container">
+                        <div class="navbar-header">
+                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                              </button>
+                              <a class="navbar-brand" href="">File Upload</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                        </div><!--/.navbar-collapse -->
+                  </div>
+            </nav>
+
+            <div class="jumbotron">
+                  <div class="container" ng-app="fileUpload" ng-controller="MyCtrl">
+                        <h1>File Upload Example</h1>
+                        <p>This is a example for a simple file uploading  web app.</p>
+
+                        <form class="form-inline" role="form" name="fileUploadForm">
+                              <fieldset>
+                                    <legend>Upload on form submit</legend>
+                                    Choose File:
+                                    <div class="form-group">
+                                          <input type="file" ngf-select ng-model="choosenFile" name="file" ngf-max-size="10MB" required ngf-model-invalid="errorFile">
+                                    </div>
+                                    <i ng-show="fileUploadForm.file.$error.required">*required</i>
+                                    <br><br>
+                                    Filename:
+                                    <div class="form-group">
+                                          <input type="text" id="upfilename" name="upfilename" value="{{choosenFile.name}}" class="form-control"  size="31" required>
+                                    </div>
+                                    <i ng-show="fileUploadForm.file.$error.required">*required</i>
+                                    <br><br>
+                                    Username:
+                                    <div class="form-group">
+                                          <input type="text" name="username" class="form-control" ng-model="username" size="31" required>
+                                    </div>
+                                    <i ng-show="fileUploadForm.username.$error.required">*required</i>
+                                    <br>
+                                    <i ng-show="fileUploadForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB Max 10M</i>
+                                    <br>
+
+                                    <button type="submit" class="btn btn-default" ng-click="choosenFile = null">Remove</button>
+                                    <button type="submit" class="btn btn-default" ng-disabled="!fileUploadForm.$valid" ng-click="uploadFile(choosenFile)">Submit &raquo;</button>
+                                    <br><br>
+                                    <div class="progress" ng-show="choosenFile.progress >= 0">
+                                          <div class="progress-bar progress-bar-info" role="progressbar"style="width: {{choosenFile.progress}}%;" ng-bind="choosenFile.progress + '%'">
+                                          </div>
+                                    </div>
+                                    <span ng-show="choosenFile.result">Upload Successful</span>
+                                    <span ng-show="errorMsg">{{errorMsg}}</span>
+                                    <br>
+                                    <span ng-show="downloadUrl">Download:  {{downloadUrl}}</span>
+                              </fieldset>
+                        </form>
+                  </div>
+            </div>
+
+            <script src="script/script.js"></script>
+      </body>
+
+</html>
