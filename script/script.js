@@ -3,7 +3,7 @@ var app = angular.module('fileUpload', ['ngFileUpload']);
 app.controller('MyCtrl', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
       $scope.uploadFile = function(file) {
             file.upload = Upload.upload({
-                  url: '/upload',
+                  url: 'upload',
                   method: 'POST',
                   data: {
                         username: $scope.username,
